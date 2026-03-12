@@ -1,79 +1,77 @@
-/* General Map Styling */
-.table-responsive {
-    /* Custom scrollbar behavior for map container */
-    scrollbar-width: thin;
-    scrollbar-color: #6c757d #e9ecef;
+/* Custom styling for the KRL map */
+
+body {
+    background-color: #f8f9fa;
 }
 
-/* Station Nodes Styling */
+.map-container {
+    position: relative;
+    border: 1px solid #dee2e6;
+    border-radius: 0.25rem;
+    background-color: #fff;
+}
+
+/* SVG styling */
+svg {
+    display: block;
+}
+
+/* Base styles for the station grouping */
 .station-node {
     cursor: pointer;
-    transition: transform 0.2s ease-in-out;
 }
 
-/* Base circle styling (transparent/semi-transparent overlay) */
+/* Make sure the image doesn't block pointer events */
+image {
+    pointer-events: none;
+}
+
+/* Transparent click area over the station */
 .station-circle {
-    fill: rgba(220, 53, 69, 0.2); /* Semi-transparent red */
+    fill: rgba(255, 0, 0, 0); /* completely transparent */
     stroke: transparent;
-    stroke-width: 3px;
-    transition: all 0.3s ease-in-out;
+    stroke-width: 2px;
+    transition: fill 0.2s, stroke 0.2s;
+    pointer-events: auto; /* Make sure it captures clicks */
 }
 
-/* Base text styling (hidden by default to avoid overlapping map text) */
+/* Station label styling - hidden by default */
 .station-text {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 24px;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
     font-weight: bold;
-    fill: #343a40;
-    opacity: 0; /* Hidden by default */
-    transform-origin: center;
-    transition: all 0.3s ease-in-out;
-
-    /* Create strong readability when shown */
-    stroke: white;
-    stroke-width: 6px;
-    stroke-linejoin: round;
-    paint-order: stroke;
+    fill: transparent; /* Text is invisible initially */
+    stroke: transparent;
+    pointer-events: none; /* Let clicks pass through to the circle */
+    transition: all 0.2s ease-in-out;
 }
 
-/* Hover Effects */
+/* Hover effects */
 .station-node:hover .station-circle {
-    fill: rgba(220, 53, 69, 0.6); /* Darker on hover */
-    stroke: #dc3545; /* Bootstrap danger color */
-    transform: scale(1.2);
+    fill: rgba(255, 255, 0, 0.5); /* Yellow semi-transparent fill on hover */
+    stroke: #ffcc00; /* Yellow stroke */
 }
 
 .station-node:hover .station-text {
-    opacity: 1; /* Make visible */
-    font-size: 32px; /* Enlarge font size on hover */
-    fill: #dc3545;
+    fill: #000; /* Black text */
+    stroke: #fff; /* White stroke for legibility */
+    stroke-width: 3px;
+    paint-order: stroke; /* ensures the stroke is drawn under the fill text */
+    font-size: 18px; /* enlarge text on hover */
 }
 
-/* Active State Effects (when clicked/selected) */
+/* Active (selected) state styling */
 .station-node.active .station-circle {
-    fill: #dc3545; /* Solid red */
-    stroke: #fff; /* White border for contrast */
-    stroke-width: 5px;
-    transform: scale(1.3);
+    fill: rgba(220, 53, 69, 0.7); /* Bootstrap danger color semi-transparent */
+    stroke: #dc3545; /* solid danger stroke */
+    stroke-width: 3px;
 }
 
 .station-node.active .station-text {
-    opacity: 1; /* Always visible when active */
-    font-size: 36px; /* Larger when selected */
-    fill: #dc3545;
-    stroke: #ffffff;
-    stroke-width: 8px;
-}
-
-/* Input read-only style indication */
-input[readonly]#lokasi_stasiun {
-    cursor: default;
-    background-color: #e9ecef;
-}
-
-input[readonly]#lokasi_stasiun:not(:placeholder-shown) {
-    background-color: #e8f5e9; /* Light green when filled */
-    color: #198754; /* Success color */
-    border-color: #198754;
-    font-weight: bold;
+    fill: #fff; /* White text */
+    stroke: #dc3545; /* Red outline to stand out */
+    stroke-width: 4px;
+    paint-order: stroke;
+    font-size: 18px; /* keep enlarged */
+    font-weight: 900;
 }
